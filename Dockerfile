@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libzip-dev \
+    libicu-dev \
     zip \
     unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -15,9 +16,16 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install opcache \
     && docker-php-ext-enable opcache
 
+RUN docker-php-ext-install intl \
+    && docker-php-ext-enable intl
+
+RUN apt install vim w3m -y
+
 # Install Xdebug
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
+
+COPY ./rejon/setup/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite

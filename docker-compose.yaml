@@ -17,7 +17,9 @@ services:
   moodle:
     build: .
     # image: docker.io/bitnami/moodle:4.4
-    command: tail -f /dev/null
+    # command: tail -f /dev/null
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     ports:
       - '8080:80'
       - '8443:8443'
