@@ -1,0 +1,4 @@
+FROM bitnami/moodle:4.4
+
+
+RUN usermod -a -G www-data daemon
